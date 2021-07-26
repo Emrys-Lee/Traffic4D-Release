@@ -1,27 +1,25 @@
 # Traffic4D
-This is the implementation of paper
 ## Traffic4D: Single View Reconstruction of Repetitious Activity Using Longitudinal Self-Supervision
-[Project]([http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/]) | [PDF]([http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/pdf/Traffic4D_Longitudinal_iv2021.pdf]) | [Poster](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/images/poster_IV2021.pdf)\
+[Project](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/) | [PDF](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/pdf/Traffic4D_Longitudinal_iv2021.pdf) | [Poster](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/images/poster_IV2021.pdf)\
 Fangyu Li, N. Dinesh Reddy, Xudong Chen and Srinivasa G. Narasimhan\
 Proceedings of IEEE Intelligent Vehicles Symposium (IV'21, Best Paper Award)
 
-***
 ## Set up
-1. Python\
+### 1. Python
 Python version: 3.6.9;\
 Python packages are in `requirements.txt` for reference.
-2. C++\
+### 2. C++
 Compilier: `clang++-6.0`;\
-Libraries: [ceres]([http://ceres-solver.org/installation.html](http://ceres-solver.org/installation.html)) and [eigen]([https://eigen.tuxfamily.org/index.php?title=Main_Page]) are required.\
+Libraries: [ceres](http://ceres-solver.org/installation.html) and [eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) are required.\
 Build Optimization Library:
 ```
     cd Traffic4D-Release/src/ceres
     make
 ```
 `ceres_reconstruct.so` and `ceres_spline.so` are generated under `Traffic4D-Release/src/ceres`.
-***
+
 ## Dataset
-Download dataset and pre-generated results from [here]([https:null]), and put it under `Traffic4D-Release/`. The directory should be like
+Download dataset and pre-generated results from [here](https:null), and put it under `Traffic4D-Release/`. The directory should be like
 ```
 Traffic4D-Release/
     Data-Traffic4D/
@@ -43,14 +41,14 @@ Traffic4D-Release/
 The input and output paths can be modified in `config/*.yml`.
 ### Explanation
 #### 1. Input Videos
-Sample videos in Traffic4D are provided. Note `arterial_kennedy` and `dodge_century` are from [Nvidia AI City Challenge]([https://www.aicitychallenge.org/]) City-Scale Multi-Camera Vehicle Tracking Challenge Track. Please request the access [here]([https://www.aicitychallenge.org/2021-data-access-instructions/]). Once get the data, run
+Sample videos in Traffic4D are provided. Note `arterial_kennedy` and `dodge_century` are from [Nvidia AI City Challenge](https://www.aicitychallenge.org/) City-Scale Multi-Camera Vehicle Tracking Challenge Track. Please request the access [here](https://www.aicitychallenge.org/2021-data-access-instructions/). Once get the data, run
 ```
 ffmpeg -i <mtmc-dir>/train/S01/c001/vdo.avi Traffic4D-Release/Data-Traffic4D/arterial_kennedy/images/%05d.jpg
 ffmpeg -i <mtmc-dir>/test/S02/c007/vdo.avi Traffic4D-Release/Data-Traffic4D/dodge_century/images/%05d.jpg
 ```
 to decode frames into `images/`.
 #### 2. Pre-Generated 2D Results
-Detected 2D bounding boxes, keypoints and tracking IDs are stored in `*_init.vd`. Check [Occlusionnet implementation]([https://github.com/dineshreddy91/Occlusion_Net]) for detecting keypoints.
+Detected 2D bounding boxes, keypoints and tracking IDs are stored in `*_init.vd`. Check [Occlusionnet implementation](https://github.com/dineshreddy91/Occlusion_Net) for detecting keypoints.
 
 #### 3. Output folder
 The default folder is `Traffic4D-Release/Result/`.
