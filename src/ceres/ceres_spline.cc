@@ -8,7 +8,6 @@
 #include <unordered_set>
 #include <cmath>
 #include <math.h>
-#include <unsupported/Eigen/MatrixFunctions>
 #include <Eigen/Dense>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
