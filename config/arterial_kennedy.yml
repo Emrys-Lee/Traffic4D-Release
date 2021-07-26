@@ -1,0 +1,11 @@
+dataset_name: "arterial_kennedy"
+data_dir: "./Data-Traffic4D/arterial_kennedy/"
+result_dir: "./Result/"
+focal: 2325.0
+fitting_length_thres: 8.0
+fitting_residual_thres: 30.0
+cluster_init_num_first: 4
+cluster_init_num_second: 2
+cluster_group_size_thres: 2
+cluster_proj_diff_thres: 10
+affine_w2m: [[ -1.427,-10.781, 610.58953349], [ -8.1508868, 2.05661751, 601.75132046]]

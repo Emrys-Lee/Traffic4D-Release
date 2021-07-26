@@ -1,0 +1,11 @@
+dataset_name: "fifth_morewood"
+data_dir: "./Data-Traffic4D/fifth_morewood/"
+result_dir: "./Result/"
+focal: 2098.0
+fitting_length_thres: 8.0
+fitting_residual_thres: 2.0
+cluster_init_num_first: 5
+cluster_init_num_second: 2
+cluster_group_size_thres: 10
+cluster_proj_diff_thres: 10
+affine_w2m: [[ -4.48978215,  10.54116814, 605.1003808 ], [  8.62,   5.28, 462.3735879 ]]

@@ -1,0 +1,11 @@
+dataset_name: "bigelow_herron"
+data_dir: "./Data-Traffic4D/bigelow_herron/"
+result_dir: "./Result/"
+focal: 1711.0
+fitting_length_thres: 10.0
+fitting_residual_thres: 5.0
+cluster_init_num_first: 6
+cluster_init_num_second: 4
+cluster_group_size_thres: 10
+cluster_proj_diff_thres: 3
+affine_w2m: [[  0.568,  11.416,  418.24368775], [ 10.69603967,   0.31487825, 337.54924147]]
