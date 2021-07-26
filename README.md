@@ -36,7 +36,6 @@ cmake .
 make -j
 sudo make install
 ```
-
 Build Optimization Library:
 ```
 cd Traffic4D-Release/src/ceres
