@@ -4,7 +4,6 @@ import numpy as np
 import cv2
 
 from dataset.vehicle import *
-import config.params as params
 from utils.utils_geom import world_to_cam, generate_spline_points_world, generate_spline_points_cam
 
 from matplotlib import pyplot as plt
