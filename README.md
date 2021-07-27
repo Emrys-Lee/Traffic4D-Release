@@ -6,12 +6,18 @@ Proceedings of IEEE Intelligent Vehicles Symposium (IV'21, Best Paper Award)
 
 ## Set up
 ### Python
-Python version: 3.6.9;\
+Python version: tested with 3.6.9\
 Python packages are in `requirements.txt` for reference.
 ### C++
-Compilier: `clang++-6.0`;\
+Compilier: tested with `clang++-6.0`\
 Libraries:
-1. [ceres](http://ceres-solver.org/installation.html)
+1. [eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
+```
+wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip
+unzip eigen-3.3.7.zip
+sudo mv eigen-3.3.7/ /usr/include/eigen3/
+```
+2. [ceres](http://ceres-solver.org/installation.html)
 ```
 wget https://github.com/ceres-solver/ceres-solver/archive/1.12.0.zip
 unzip 1.12.0.zip
@@ -19,21 +25,15 @@ cd ceres-solver-1.12.0/
 mkdir build
 cd build
 cmake .. -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF
-make -j
+make
 sudo make install
-```
-2. [eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
-```
-wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip
-unzip eigen-3.3.7.zip
-sudo mv eigen-3.3.7/ /usr/include/eigen3/
 ```
 3. [pybind](https://github.com/pybind/pybind11)
 ```
 git clone https://github.com/pybind/pybind11
 cd pybind11
 cmake .
-make -j
+make
 sudo make install
 ```
 Build Optimization Library:
@@ -48,47 +48,47 @@ Download dataset and pre-generated results from [here](https:null), and put it u
 ```
 Traffic4D-Release/
     Data-Traffic4D/
-        fifth_morewood/
-            fifth_morewood_init.vd
-            top_view.png
-            images/
+    └───fifth_morewood/
+        └───fifth_morewood_init.vd
+        └───top_view.png
+        └───images/
                 00001.jpg
                 00002.jpg
                 ...
                 06288.jpg
-        arterial_kennedy/
-            arterial_kennedy_init.vd
-            top_view.png
-            images/
+    └───arterial_kennedy/
+        └───arterial_kennedy_init.vd
+        └───top_view.png
+        └───images/
                 <put AI City Challenge frames here>
         ...
 ```
 The input and output paths can be modified in `config/*.yml`.
 ### Explanation
 #### 1. Input Videos
-Sample videos in Traffic4D are provided. Note `arterial_kennedy` and `dodge_century` are from [Nvidia AI City Challenge](https://www.aicitychallenge.org/) City-Scale Multi-Camera Vehicle Tracking Challenge Track. Please request the access [here](https://www.aicitychallenge.org/2021-data-access-instructions/). Once get the data, run
+Sample videos in Traffic4D are provided. Note `arterial_kennedy` and `dodge_century` are from [Nvidia AI City Challenge](https://www.aicitychallenge.org/) City-Scale Multi-Camera Vehicle Tracking Challenge Track. Please request the access to the dataset [here](https://www.aicitychallenge.org/2021-data-access-instructions/). Once get the data, run
 ```
 ffmpeg -i <mtmc-dir>/train/S01/c001/vdo.avi Traffic4D-Release/Data-Traffic4D/arterial_kennedy/images/%05d.jpg
 ffmpeg -i <mtmc-dir>/test/S02/c007/vdo.avi Traffic4D-Release/Data-Traffic4D/dodge_century/images/%05d.jpg
 ```
-to decode frames into `images/`.
+to extract frames into `images/`.
 #### 2. Pre-Generated 2D Results
-Detected 2D bounding boxes, keypoints and tracking IDs are stored in `*_init.vd`. Check [Occlusionnet implementation](https://github.com/dineshreddy91/Occlusion_Net) for detecting keypoints.
+Detected 2D bounding boxes, keypoints and tracking IDs are stored in `*_init.vd`. Check [Occlusionnet implementation](https://github.com/dineshreddy91/Occlusion_Net) for detecting keypoints; [V-IOU](https://github.com/bochinski/iou-tracker) for multi-object tracking.
 
 #### 3. Output folder
-The default folder is `Traffic4D-Release/Result/`.
+Folder `Traffic4D-Release/Result/` will be created by default.
 
 ## Experiments
-Run to perform longitudinal reconstruction and activity clustering.
+Run `python exp/traffic4d.py config/<intersection_name>.yml <action>`. Here YML configuration files for multiple intersections are provided under `config/` folder. `<action>` shoulbe be `reconstruction` or `clustering` to perform longitudinal reconstruction and activity clustering sequentially. For example, below runs Fifth and Morewood intersection.
 ```
-    cd Traffic4D-Release
-    python exp/traffic4d.py config/fifth_morewood.yml reconstruction
-    python exp/traffic4d.py config/fifth_morewood.yml clustering
+cd Traffic4D-Release
+python exp/traffic4d.py config/fifth_morewood.yml reconstruction
+python exp/traffic4d.py config/fifth_morewood.yml clustering
 ```
 ### Results
 Find these results in the output folder:
-1. 2D keypoints: If 3D reconstruction is done, 2D reprojected keypoints will be plotted.
-2. 3D reconstructed trajectories and clusters: The clustered 3D trajectories are plotted on the top view map.
+1. 2D keypoints: If 3D reconstruction is done, 2D reprojected keypoints will be plotted in `Traffic4D-Release/Result/<intersection_name>_keypoints/`.
+2. 3D reconstructed trajectories and clusters: The clustered 3D trajectories are plotted on the top view map as `Traffic4D-Release/Result/<intersection_name>_top_view.jpg`.
 
 ## Citation
 ### Traffic4D

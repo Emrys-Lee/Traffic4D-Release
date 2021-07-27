@@ -2,8 +2,10 @@ dataset_name: "dodge_century"
 data_dir: "./Data-Traffic4D/dodge_century/"
 result_dir: "./Result/"
 focal: 2325.0
+optimize_reproj_scale: 4.0
 fitting_length_thres: 10.0
 fitting_residual_thres: 30.0
+fitting_coeff_reg: 750.0
 cluster_init_num_first: 6
 cluster_init_num_second: 3
 cluster_group_size_thres: 2
