@@ -99,7 +99,9 @@ Detected 2D bounding boxes, keypoints and tracking IDs are stored in `*_init.vd`
 Folder `Traffic4D-Release/Result/` will be created by default.
 
 ### Intersection Information and Sample Results
-![image](./demo/intersection_info_and_sample_results.png)
+<p align="center">
+  <img src="/demo/intersection_info_and_sample_results.png">
+</p>
 
 ## Experiments
 Run `python exp/traffic4d.py config/<intersection_name>.yml <action>`. Here YML configuration files for multiple intersections are provided under `config/` folder. `<action>` shoulbe be `reconstruction` or `clustering` to perform longitudinal reconstruction and activity clustering sequentially. For example, below runs Fifth and Morewood intersection.
