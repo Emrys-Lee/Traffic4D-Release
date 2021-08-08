@@ -100,7 +100,7 @@ Folder `Traffic4D-Release/Result/` will be created by default.
 
 ### Intersection Information and Sample Results
 <p align="center">
-  <img src="/demo/intersection_info_and_sample_results.png">
+  <img src="/demo/intersection_info_and_sample_results.jpg ">
 </p>
 
 ## Experiments
