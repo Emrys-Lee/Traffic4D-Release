@@ -1,34 +1,48 @@
-# Traffic4D
-## Traffic4D: Single View Reconstruction of Repetitious Activity Using Longitudinal Self-Supervision
+# Traffic4D: Single View Reconstruction of Repetitious Activity Using Longitudinal Self-Supervision
 [Project](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/) | [PDF](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/pdf/Traffic4D_Longitudinal_iv2021.pdf) | [Poster](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/images/poster_IV2021.pdf)\
 Fangyu Li, N. Dinesh Reddy, Xudong Chen and Srinivasa G. Narasimhan\
 Proceedings of IEEE Intelligent Vehicles Symposium (IV'21, Best Paper Award)
 
 ## Set up
 ### Python
-Python version: tested with 3.6.9\
-Python packages are in `requirements.txt` for reference.
+Python version 3.6.9 is used. Python packages are in `requirements.txt` .
+```
+sudo apt-get install python3.6
+sudo apt-get install python3-pip
+cd Traffic4D-Release
+pip3 install -r requirements.txt
+```
 ### C++
-Compilier: tested with `clang++-6.0`\
-Libraries:
-1. [eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)
+Traffic4D uses C++ libraries `ceres` and `pybind` for efficient optimization. `pybind` needs `clang` compiler, so Traffic4D uses `clang` compiler.
+#### Install `clang` compiler
 ```
-wget https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip
-unzip eigen-3.3.7.zip
-sudo mv eigen-3.3.7/ /usr/include/eigen3/
+sudo apt-get install clang++-6.0
 ```
-2. [ceres](http://ceres-solver.org/installation.html)
+#### Install prerequisites for `ceres`
+```
+# CMake
+sudo apt-get install cmake
+# google-glog + gflags
+sudo apt-get install libgoogle-glog-dev libgflags-dev
+# BLAS & LAPACK
+sudo apt-get install libatlas-base-dev
+# Eigen3
+sudo apt-get install libeigen3-dev
+# SuiteSparse and CXSparse (optional)
+sudo apt-get install libsuitesparse-dev
+```
+#### Download and install `ceres`
 ```
 wget https://github.com/ceres-solver/ceres-solver/archive/1.12.0.zip
 unzip 1.12.0.zip
 cd ceres-solver-1.12.0/
 mkdir build
 cd build
-cmake .. -DCMAKE_C_FLAGS=-fPIC -DCMAKE_CXX_FLAGS=-fPIC -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF
+cmake ..
 make
 sudo make install
 ```
-3. [pybind](https://github.com/pybind/pybind11)
+#### Download and install [pybind](https://github.com/pybind/pybind11)
 ```
 git clone https://github.com/pybind/pybind11
 cd pybind11
@@ -36,15 +50,21 @@ cmake .
 make
 sudo make install
 ```
-Build Optimization Library:
+#### Build Traffic4D Optimization Library
 ```
 cd Traffic4D-Release/src/ceres
 make
 ```
-`ceres_reconstruct.so` and `ceres_spline.so` are generated under `Traffic4D-Release/src/ceres`.
+`ceres_reconstruct.so` and `ceres_spline.so` are generated under path `Traffic4D-Release/src/ceres/`.
 
 ## Dataset
-Download dataset and pre-generated results from [here](https:null), and put it under `Traffic4D-Release/`. The directory should be like
+Download dataset and pre-generated results from [here](http://platformpgh.cs.cmu.edu/traffic4d/Data-Traffic4D.zip), and put it under `Traffic4D-Release/`.
+```
+cd Traffic4D-Release
+mv Data-Traffic4D.zip ./
+unzip Data-Traffic4D.zip
+```
+The directory should be like
 ```
 Traffic4D-Release/
     Data-Traffic4D/
@@ -78,18 +98,42 @@ Detected 2D bounding boxes, keypoints and tracking IDs are stored in `*_init.vd`
 #### 3. Output folder
 Folder `Traffic4D-Release/Result/` will be created by default.
 
+### Intersection Information and Sample Results
+![image](./demo/intersection_info_and_sample_results.png)
+
 ## Experiments
 Run `python exp/traffic4d.py config/<intersection_name>.yml <action>`. Here YML configuration files for multiple intersections are provided under `config/` folder. `<action>` shoulbe be `reconstruction` or `clustering` to perform longitudinal reconstruction and activity clustering sequentially. For example, below runs Fifth and Morewood intersection.
 ```
 cd Traffic4D-Release
-python exp/traffic4d.py config/fifth_morewood.yml reconstruction
-python exp/traffic4d.py config/fifth_morewood.yml clustering
+python3 exp/traffic4d.py config/fifth_morewood.yml reconstruction
+python3 exp/traffic4d.py config/fifth_morewood.yml clustering
 ```
 ### Results
 Find these results in the output folder:
 1. 2D keypoints: If 3D reconstruction is done, 2D reprojected keypoints will be plotted in `Traffic4D-Release/Result/<intersection_name>_keypoints/`.
 2. 3D reconstructed trajectories and clusters: The clustered 3D trajectories are plotted on the top view map as `Traffic4D-Release/Result/<intersection_name>_top_view.jpg`.
 
+## Trouble Shooting
+1. `tkinter` module is missing
+```
+File "/usr/local/lib/python3.6/dist-packages/matplotlib/backends/_backend_tk.py", line 5, in <module>
+    import tkinter as Tk
+ModuleNotFoundError: No module named 'tkinter'
+```
+Solution: Please install `tkinter`.
+```
+sudo apt-get install python3-tk
+```
+2. `opencv` import error such as
+```
+File "/usr/local/lib/python3.6/dist-packages/cv2/__init__.py", line 3, in <module>
+    from .cv2 import *
+ImportError: libSM.so.6: cannot open shared object file: No such file or directory
+```
+Solution: please install the missing libraries.
+```
+sudo apt-get install libsm6  libxrender1 libfontconfig1 libxext6
+```
 ## Citation
 ### Traffic4D
  ```
