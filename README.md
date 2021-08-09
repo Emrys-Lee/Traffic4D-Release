@@ -3,6 +3,11 @@
 Fangyu Li, N. Dinesh Reddy, Xudong Chen and Srinivasa G. Narasimhan\
 Proceedings of IEEE Intelligent Vehicles Symposium (IV'21, Best Paper Award)
 
+Following instructions below, the user will get keypoints, trajectory reconstruction and vehicular activity clustering results like
+<p align="center">
+  <img src="/demo/intersection_info_and_sample_results.jpg ">
+</p>
+
 ## Set up
 The set up process can be skipped if using docker. Please check "Docker" section.
 ### Python
@@ -20,7 +25,7 @@ Traffic4D uses C++ libraries `ceres` and `pybind` for efficient optimization. `p
 ```
 sudo apt-get install clang++-6.0
 ```
-#### Install prerequisites for `ceres`
+#### Install prerequisites for [ceres](http://ceres-solver.org/)
 ```
 # CMake
 sudo apt-get install cmake
@@ -33,7 +38,7 @@ sudo apt-get install libeigen3-dev
 # SuiteSparse and CXSparse (optional)
 sudo apt-get install libsuitesparse-dev
 ```
-#### Download and install `ceres`
+#### Download and install [ceres](http://ceres-solver.org/)
 ```
 wget https://github.com/ceres-solver/ceres-solver/archive/1.12.0.zip
 unzip 1.12.0.zip
@@ -52,7 +57,7 @@ cmake .
 make
 sudo make install
 ```
-#### Build Traffic4D Optimization Library
+#### Build Traffic4D optimization library
 ```
 cd Traffic4D-Release/src/ceres
 make
@@ -87,23 +92,18 @@ Traffic4D-Release/
 ```
 The input and output paths can be modified in `config/*.yml`.
 ### Explanation
-#### 1. Input Videos
+#### 1. Input videos
 Sample videos in Traffic4D are provided. Note `arterial_kennedy` and `dodge_century` are from [Nvidia AI City Challenge](https://www.aicitychallenge.org/) City-Scale Multi-Camera Vehicle Tracking Challenge Track. Please request the access to the dataset [here](https://www.aicitychallenge.org/2021-data-access-instructions/). Once get the data, run
 ```
 ffmpeg -i <mtmc-dir>/train/S01/c001/vdo.avi Traffic4D-Release/Data-Traffic4D/arterial_kennedy/images/%05d.jpg
 ffmpeg -i <mtmc-dir>/test/S02/c007/vdo.avi Traffic4D-Release/Data-Traffic4D/dodge_century/images/%05d.jpg
 ```
 to extract frames into `images/`.
-#### 2. Pre-Generated 2D Results
+#### 2. Pre-Generated 2D results
 Detected 2D bounding boxes, keypoints and tracking IDs are stored in `*_init.vd`. Check [Occlusionnet implementation](https://github.com/dineshreddy91/Occlusion_Net) for detecting keypoints; [V-IOU](https://github.com/bochinski/iou-tracker) for multi-object tracking.
 
 #### 3. Output folder
 Folder `Traffic4D-Release/Result/` will be created by default.
-
-### Intersection Information and Sample Results
-<p align="center">
-  <img src="/demo/intersection_info_and_sample_results.jpg ">
-</p>
 
 ## Experiments
 Run `python exp/traffic4d.py config/<intersection_name>.yml <action>`. Here YML configuration files for multiple intersections are provided under `config/` folder. `<action>` shoulbe be `reconstruction` or `clustering` to perform longitudinal reconstruction and activity clustering sequentially. For example, below runs Fifth and Morewood intersection.
@@ -142,7 +142,7 @@ File "/usr/local/lib/python3.6/dist-packages/matplotlib/backends/_backend_tk.py"
     import tkinter as Tk
 ModuleNotFoundError: No module named 'tkinter'
 ```
-Solution: Please install `tkinter`.
+Solution:  install `tkinter`.
 ```
 sudo apt-get install python3-tk
 ```
@@ -152,9 +152,9 @@ File "/usr/local/lib/python3.6/dist-packages/cv2/__init__.py", line 3, in <modul
     from .cv2 import *
 ImportError: libSM.so.6: cannot open shared object file: No such file or directory
 ```
-Solution: please install the missing libraries.
+Solution: install the missing libraries.
 ```
-sudo apt-get install libsm6  libxrender1 libfontconfig1 libxext6
+sudo apt-get install libsm6 libxrender1 libfontconfig1 libxext6
 ```
 ## Citation
 ### Traffic4D
