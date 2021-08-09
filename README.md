@@ -7,6 +7,7 @@ Proceedings of IEEE Intelligent Vehicles Symposium (IV'21, Best Paper Award)
 ### Python
 Python version 3.6.9 is used. Python packages are in `requirements.txt` .
 ```
+git clone https://github.com/Emrys-Lee/Traffic4D-Release.git
 sudo apt-get install python3.6
 sudo apt-get install python3-pip
 cd Traffic4D-Release
@@ -114,6 +115,24 @@ python3 exp/traffic4d.py config/fifth_morewood.yml clustering
 Find these results in the output folder:
 1. 2D keypoints: If 3D reconstruction is done, 2D reprojected keypoints will be plotted in `Traffic4D-Release/Result/<intersection_name>_keypoints/`.
 2. 3D reconstructed trajectories and clusters: The clustered 3D trajectories are plotted on the top view map as `Traffic4D-Release/Result/<intersection_name>_top_view.jpg`.
+
+
+## Docker
+We provide docker image with dependencies already set up. The steps in `Set up` can be skipped if you use docker image. You still need to download the dataset and put it in under `Traffic4D-Release/`. Then map the git repo into docker container to access the dataset.
+```
+git clone https://github.com/Emrys-Lee/Traffic4D-Release.git
+# pull Traffic4D docker image
+docker pull emrysli/traffic4d-release:latest
+# create a container. For example, if the cloned repo locates at /home/xxx/Traffic4D-Release, <path to cloned repo> should be "/home/xxx"
+# If <path in docker container> is "/home/yyy", then "/home/xxx/Traffic4D-Release" will be mapped as "/home/yyy/Traffic4D-Release" inside the container
+docker run -it -v <path to cloned repo>/Traffic4D-Release:<path in docker container>/Traffic4D-Release emrysli/traffic4d-release:latest /bin/bash
+# inside container
+cd <path in docker container>/Traffic4D-Release/src/ceres
+make
+cd <path in docker container>/Traffic4D-Release
+python3 exp/traffic4d.py config/fifth_morewood.yml reconstruction
+python3 exp/traffic4d.py config/fifth_morewood.yml clustering
+```
 
 ## Trouble Shooting
 1. `tkinter` module is missing
