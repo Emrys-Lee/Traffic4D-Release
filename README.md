@@ -4,6 +4,7 @@ Fangyu Li, N. Dinesh Reddy, Xudong Chen and Srinivasa G. Narasimhan\
 Proceedings of IEEE Intelligent Vehicles Symposium (IV'21, Best Paper Award)
 
 ## Set up
+The set up process can be skipped if using docker. Please check "Docker" section.
 ### Python
 Python version 3.6.9 is used. Python packages are in `requirements.txt` .
 ```
@@ -118,7 +119,7 @@ Find these results in the output folder:
 
 
 ## Docker
-We provide docker image with dependencies already set up. The steps in `Set up` can be skipped if you use docker image. You still need to download the dataset and put it in under `Traffic4D-Release/`. Then map the git repo into docker container to access the dataset.
+We provide docker image with dependencies already set up. The steps in "Set up" can be skipped if you use docker image. You still need to download the dataset and put it in under `Traffic4D-Release/`. Then map the git repo into docker container to access the dataset.
 ```
 git clone https://github.com/Emrys-Lee/Traffic4D-Release.git
 # pull Traffic4D docker image
