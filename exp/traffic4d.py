@@ -14,10 +14,10 @@ from src.modules.activity_clustering import solve_longitudinal_clustering
 def reconstruction_go(params):
     # load dataset
     vd = vd_load(params, suffix='_init', in_result=False)
+    draw_car_proj_all(vd, params, suffix='_keypoints')
     # init rt and do LM optimization
     solve_longitudinal_reconstruction(vd, params)
     vd_dump(vd, params, suffix='_rec')
-    draw_car_proj_all(vd, params, suffix='_keypoints')
 
 def analytic_fitting_go(params):
     vd = vd_load(params, suffix='_rec')

@@ -45,7 +45,7 @@ class Params:
 
         self.affine_w2m = []
 
-        self.draw_keypoints_2d_num_frames = 5
+        self.draw_keypoints_2d_num_frames = 10
 
     def yml_load(self, yml_name):
         with open(yml_name, 'r') as f:
