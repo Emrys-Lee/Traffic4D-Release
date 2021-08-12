@@ -119,18 +119,27 @@ Find these results in the output folder:
 
 
 ## Docker
-We provide docker image with dependencies already set up. The steps in "Set up" can be skipped if you use docker image. You still need to download the dataset and put it in under `Traffic4D-Release/`. Then map the git repo into docker container to access the dataset.
+We provide docker image with dependencies already set up. The steps in "Set up" can be skipped if you use docker image. You still need to clone the repo and download the dataset and put it in under `Traffic4D-Release/`.
 ```
 git clone https://github.com/Emrys-Lee/Traffic4D-Release.git
-# pull Traffic4D docker image
+```
+Pull Traffic4D docker image.
+```
 docker pull emrysli/traffic4d-release:latest
-# create a container. For example, if the cloned repo locates at /home/xxx/Traffic4D-Release, <path to cloned repo> should be "/home/xxx"
-# If <path in docker container> is "/home/yyy", then "/home/xxx/Traffic4D-Release" will be mapped as "/home/yyy/Traffic4D-Release" inside the container
-docker run -it -v <path to cloned repo>/Traffic4D-Release:<path in docker container>/Traffic4D-Release emrysli/traffic4d-release:latest /bin/bash
+```
+Then create a container and map the git repo into docker container to access the dataset. For example, if the cloned repo locates at host directory `/home/xxx/Traffic4D-Release`, `<path_to_repo>` should be `/home/xxx`. If `<path_in_container>` is `/home/yyy`, then `/home/xxx/Traffic4D-Release` will be mapped as `/home/yyy/Traffic4D-Release` inside the container.
+```
+docker run -it -v <path_to_repo>/Traffic4D-Release:<path_in_container>/Traffic4D-Release emrysli/traffic4d-release:latest /bin/bash
+```
+Inside container compile Traffic4D again.
+```
 # inside container
-cd <path in docker container>/Traffic4D-Release/src/ceres
+cd <path_in_container>/Traffic4D-Release/src/ceres
 make
-cd <path in docker container>/Traffic4D-Release
+```
+Run experiments.
+```
+cd <path_in_container>/Traffic4D-Release
 python3 exp/traffic4d.py config/fifth_morewood.yml reconstruction
 python3 exp/traffic4d.py config/fifth_morewood.yml clustering
 ```
