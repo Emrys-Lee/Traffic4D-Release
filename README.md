@@ -1,7 +1,8 @@
 # Traffic4D: Single View Reconstruction of Repetitious Activity Using Longitudinal Self-Supervision
 [Project](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/) | [PDF](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/pdf/Traffic4D_Longitudinal_iv2021.pdf) | [Poster](http://www.cs.cmu.edu/~ILIM/projects/IM/TRAFFIC4D/images/poster_IV2021.pdf)\
 Fangyu Li, N. Dinesh Reddy, Xudong Chen and Srinivasa G. Narasimhan\
-Proceedings of IEEE Intelligent Vehicles Symposium (IV'21, Best Paper Award)
+Proceedings of IEEE Intelligent Vehicles Symposium (IV'21)\
+**Best Paper Award**
 
 Following instructions below, the user will get keypoints, trajectory reconstruction and vehicular activity clustering results like
 <p align="center">
