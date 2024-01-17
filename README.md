@@ -66,7 +66,7 @@ make
 `ceres_reconstruct.so` and `ceres_spline.so` are generated under path `Traffic4D-Release/src/ceres/`.
 
 ## Dataset
-Download dataset and pre-generated results from [here](http://platformpgh.cs.cmu.edu/traffic4d/Data-Traffic4D.zip), and put it under `Traffic4D-Release/`.
+Download dataset and pre-generated results from [here](https://drive.google.com/file/d/1Gat55bUsKNji8JXedjY3ZqKdYYxgAzC_/view?usp=sharing), and put it under `Traffic4D-Release/`.
 ```
 cd Traffic4D-Release
 mv Data-Traffic4D.zip ./
